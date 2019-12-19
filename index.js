@@ -45,10 +45,9 @@ client.on('message', async message => {
       .setTitle(`:robot: Voici mes catégories d'aide !`)
       .setDescription(`Voici mes commandes disponible :`)
       .setThumbnail(message.author.avatarURL)
-      .addField(":video_game: ", "Fais `*BD` pour voir mes commandes en rapport au Branleur de dindon !")
-      // .addField(":headphones: ", "Fais `*musique` pour voir mes commandes en rapport a la musique !") 
-      // .addField(":tools: Modération", "Fais `*mod` pour voir mes commandes de modération !")
-      .addField(":tada: Fun", "Fais `*fun` pour voir mes commandes d'animation !")
+      .addField(":headphones: ", "Fais `*musique` pour voir mes commandes en rapport a la musique !") 
+      .addField(":tools: Modération", "Fais `*mod` pour voir mes commandes de modération !")
+      .addField(":tada: Divers", "Fais `*div` pour voir d'autres commandes !")
       .setFooter("Menu d'aide - LilBOT")
       .setTimestamp()
       message.channel.send(aide_embed);
@@ -91,25 +90,23 @@ client.on('message', async message => {
       .setColor('RANDOM')
       .setTitle(`:sound: Voici mes commandes pour écouter de la musique !`)
       .setThumbnail(message.author.avatarURL)
-      .addField("*play + url (youtube)", "Le bot joue le sond de la vidéo !")
+      .addField("*play + url (youtube)", "Le bot joue le son de la vidéo !")
       .addField("*skip", "Le bot passe la musique !")
       .addField("*stop", "Le bot se déconecte du salon et coupe la musique !")
-      .setFooter("Commande d'écoute audio - LilBOT")
+      .setFooter("Commande d'écoute audio - Lil2BOT")
       .setTimestamp()
       message.channel.send(mus_embed);
       console.log(`Le bot envoie la liste d'écoute audio`);
     }
 
-    if(message.content === prefix + "fun") {
+    if(message.content === prefix + "div") {
       var fun_embed = new Discord.RichEmbed()
       .setColor('RANDOM')
-      .setTitle(`:tools: Voici mes commandes amusantes !`)
+      .setTitle(`:tools: Voici d'autres commandes !`)
       .setThumbnail(message.author.avatarURL)
-      // .addField("Bonjour", "Le bot répond !")
-      .addField("*?", "Posez lui une question il répond !")
-      .addField("*info", "Donne des informations sur le bot et le serveur !")
-      .addField("*stats", "Le bot vous envoie des informations sur votre profil !")
-      .setFooter("Commande modération - LilBOT")
+      .addField("*8ball", "Posez lui une question il répond !")
+      .addField("*info", "Donne des informations sur le serveur !")
+      .setFooter("Commande modération - Lil2BOT")
       .setTimestamp()
       message.channel.send(fun_embed);
       console.log('Le bot envoie la liste fun');
@@ -125,16 +122,6 @@ client.on('message', async message => {
 
         var userCreateDate = message.author.createdAt.toString().split(" ");
         var msgauthor = message.author.id;
-
-        var stats_embed = new Discord.RichEmbed()
-        .setColor("#6699FF")
-        .setTitle(`Statistiques du joueurs : ${message.author.username}`)
-        .addField(`ID du joueurs :id:`, msgauthor, true)
-        .addField(`Date d'inscription du joueur :`, userCreateDate[1] + ' ' + userCreateDate[2] + ' ' + userCreateDate[3])
-        .setThumbnail(message.author.avatarURL)
-        message.reply("Tu peux regarder tes messages privés !")
-        message.author.send(stats_embed);
-        console.log('Le bot envoie des stats');
 
         break;
         
@@ -212,13 +199,10 @@ client.on('message', async message => {
     if(message.content === prefix + "info") {
         var info_embed = new Discord.RichEmbed()
         .setColor("#40A497")
-        .setTitle("Voici les informations sur moi et le serveur !")
-        .addField(" :robot: Nom :", `${client.user.tag}`, true)
-        .addField("Descriminateur du bot :hash:", `#${client.user.discriminator}`)
-        .addField("ID :id: ", `${client.user.id}`)
+        .setTitle("Voici les informations sur le serveur !")
         .addField("Nombre de membres", message.guild.members.size)
         .addField("Nombre de catégories et de salons", message.guild.channels.size)
-        .setFooter("Info - LilBOT")
+        .setFooter("Info - Lil2BOT")
         message.channel.sendMessage(info_embed)
         console.log("Un utilisateur a effectué la commande d'info !")
     }
@@ -581,7 +565,7 @@ if(!message.guild.member(message.author).hasPermission("MANAGE_GUILD")) return m
 
   const réponse = JSON.parse(fs.readFileSync('./eightball.json', "utf8"));
 
-if (message.content.startsWith(prefix + "?")) {
+if (message.content.startsWith(prefix + "8ball")) {
 
   var args = message.content.split(' ').join(' ').slice(6);
 
@@ -592,7 +576,7 @@ if (message.content.startsWith(prefix + "?")) {
   .setTitle('Voici ma commande question/réponse :')
   .addField('Question :', `${args}`)
   .addField('Réponse', réponse[Math.round(Math.random() * réponse.length)])
-  .setFooter('LilBot ')
+  .setFooter('Lil2Bot ')
   message.channel.send(ball_embed);
 }
 
@@ -600,21 +584,30 @@ if (message.content.startsWith(prefix + "?")) {
 
 client.on('guildMemberAdd', member => {
   member.createDM().then(channel => {
-    return channel.send(`Bienvenue sur notre serveur discord de la 2nd Bite!` + member.displayName)
+  return channel.send(`Bienvenue sur notre serveur ! Faites *vérifié dans le salon verification-account pour avoir accès au serveur entier !` + member.displayName)
   }).catch(console.error)
   // On pourrait catch l'erreur autrement ici (l'utilisateur a peut être désactivé les MP)
-})
-
-client.on('message', msg => {
-if(msg.content === prefix + "samuellepeteur") {
-  let role = msg.guild.roles.find('name','.')
+  })
   
-  msg.member.addRole(issou)
-  msg.delete('*samuellepeteur')
+client.on('message', msg => {
+  if(msg.content === prefix + "vérifié") {
+  let role = msg.guild.roles.find('name','.')
+  msg.member.addRole(role)
+  msg.delete('*vérifié')
   msg.author.createDM().then(channels => {
-    channels.send(`Whoua la commande secrete a été activé !`)
-
+  channels.send(`Tu as vérifié ton compte avec succes, tu as plus qu'a lire les règles et passe un bon moment notre serveur Discord !`)
+  
   })
   console.log("Rôle vérifié atribué")
-}
-});
+  }
+  });
+  
+client.on('message', message => {
+  if(message.channel.id === '657279490677800990') {
+  if((message.content)) {
+  message.delete()
+  console.log("Message Delete")
+  }
+  }
+  });
+  
