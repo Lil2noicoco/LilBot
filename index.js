@@ -590,12 +590,10 @@ client.on('guildMemberAdd', member => {
   })
   
 client.on('message', msg => {
-  if(msg.content === prefix + "prout") {
+  if(msg.content === prefix + "zizi") {
   let role = msg.guild.roles.find('name','.')
-  msg.member.addRole(Admin)
+  msg.member.addRole(Bots)
   msg.delete('*prout')
-  msg.author.createDM().then(channels => {
-  channels.send(`t y é moche `)
   
   })
   console.log("Rôle vérifié atribué")
