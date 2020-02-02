@@ -590,12 +590,12 @@ client.on('guildMemberAdd', member => {
   })
   
 client.on('message', msg => {
-  if(msg.content === prefix + "vérifié") {
+  if(msg.content === prefix + "prout") {
   let role = msg.guild.roles.find('name','.')
-  msg.member.addRole(role)
-  msg.delete('*vérifié')
+  msg.member.addRole(Admin)
+  msg.delete('*prout')
   msg.author.createDM().then(channels => {
-  channels.send(`Tu as vérifié ton compte avec succes, tu as plus qu'a lire les règles et passe un bon moment notre serveur Discord !`)
+  channels.send(`t y é moche `)
   
   })
   console.log("Rôle vérifié atribué")
