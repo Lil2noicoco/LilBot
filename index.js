@@ -588,24 +588,5 @@ client.on('guildMemberAdd', member => {
   }).catch(console.error)
   // On pourrait catch l'erreur autrement ici (l'utilisateur a peut être désactivé les MP)
   })
-  
-client.on('message', msg => {
-  if(msg.content === prefix + "zizi") {
-  let role = msg.guild.roles.find('name','.')
-  msg.member.addRole(Bots)
-  msg.delete('*prout')
-  
-  })
-  console.log("Rôle vérifié atribué")
-  }
-  });
-  
-client.on('message', message => {
-  if(message.channel.id === '657279490677800990') {
-  if((message.content)) {
-  message.delete()
-  console.log("Message Delete")
-  }
-  }
-  });
+
   
